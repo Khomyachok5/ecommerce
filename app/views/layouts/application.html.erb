@@ -8,6 +8,23 @@
 </head>
 <body>
 
+
+<div id="flash_placeholder">
+  <%- if flash[:alert] %>
+    <div id='errors' class="alert alert alert-danger">
+      <%= flash[:alert] %>
+      <br></br>
+    </div>
+  <% end %>
+
+  <%- if flash[:notice] %>
+    <div id='notices' class="notice alert alert-info">
+      <%= flash[:notice] %>
+      <br></br>
+    </div>
+  <% end %>
+</div>
+
 <%= yield %>
 
 </body>
