@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :find_product, only: [:show, :edit, :update]
+  before_action :find_product, only: [:show, :edit, :update, :destroy]
   
   def index
     @product_listing = Product.order(created_at: :asc)
@@ -24,6 +24,11 @@ class ProductsController < ApplicationController
   def update
     @product.update_attributes(product_params)
     redirect_to product_path(@product)
+  end
+
+  def destroy
+    @product.destroy
+    redirect_to root_path
   end
 
   private
