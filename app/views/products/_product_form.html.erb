@@ -9,7 +9,17 @@
     <div class="form-group">
       <%= f.label :description %><br>
       <%= f.text_area :description, class: "form-control", cols: 40, rows: 30 %>
-    </div> 
+    </div>
+
+    <div class="form-group">
+      <%= f.label :price %><br>
+      <%= f.text_field :price, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :stock %><br>
+      <%= f.text_field :stock, class: "form-control" %>
+    </div>
    
     <div class="form-group">
       <%= f.submit "Submit", class: "btn btn-default"%>
