@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 20150921103209) do
   enable_extension "plpgsql"
 
   create_table "categories", force: :cascade do |t|
-    t.string   "title"
+    t.string   "title",      null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -33,10 +33,10 @@ ActiveRecord::Schema.define(version: 20150921103209) do
 
   create_table "products", force: :cascade do |t|
     t.integer  "category_id"
-    t.string   "title"
-    t.text     "description"
-    t.decimal  "price"
-    t.integer  "stock"
+    t.string   "title",                       null: false
+    t.text     "description",                 null: false
+    t.decimal  "price",                       null: false
+    t.integer  "stock",                       null: false
     t.boolean  "deleted",     default: false
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
