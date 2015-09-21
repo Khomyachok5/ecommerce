@@ -6,7 +6,7 @@ class CreateProducts < ActiveRecord::Migration
       t.text :description
       t.decimal :price
       t.integer :stock
-      t.boolean :deleted
+      t.boolean :deleted, default: false
 
       t.timestamps null: false
     end
