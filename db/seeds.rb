@@ -7,5 +7,5 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 Category.create(title: "abc")
 Category.first.products.create(title: "abc_product", description: "abc product description. It's AWESOME", price: 1567, stock: 1000, deleted: false)
-
+Category.first.subcategories.create(title: "new subcategory")
 Product.first.pictures.create(image: "abc")
