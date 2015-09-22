@@ -15,3 +15,27 @@
     </tr>
   <% end %>
 </table>
+
+<%=link_to("New Product", new_product_path, class: "btn btn-default")%>
+
+<br>
+<br>
+
+<p class="lead">Category Management</p>
+<table class="table">
+  <tr>
+    <th>Title</th>
+    <th>Actions</th>
+  </tr>
+  
+  <%- @categories.each do |cat| %>
+    <tr>
+      <td> <%=cat.title %> </td>
+      <td>
+        <%=link_to("Edit Category", edit_category_path(cat), class: "btn btn-default")  %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<%=link_to("New Category", new_category_path, class: "btn btn-default")%>

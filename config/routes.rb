@@ -7,6 +7,11 @@ Rails.application.routes.draw do
   root 'products#index'
 
   resources :products
+  devise_scope :user do
+    authenticate :user do
+      resources :categories, only: [:create, :destroy, :edit, :update, :new]
+    end
+  end  
 
   devise_scope :user do
     authenticate :user do

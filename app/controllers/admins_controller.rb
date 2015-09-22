@@ -4,6 +4,7 @@ class AdminsController < ApplicationController
 
   def manage
     @products = Product.order(created_at: :asc)
+    @categories = Category.order(created_at: :asc)
   end
 
 end

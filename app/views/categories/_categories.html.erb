@@ -1,0 +1,19 @@
+<div>
+  <%= form_for :category, url: url, method: method, html: { class: "form-group"} do |f| %>
+
+    <div class="form-group">
+      <%= f.label :title, "Category title" %><br>
+      <%= f.text_field :title, class: "form-control" %>
+    </div>
+   
+    <div class="form-group">
+      <%= f.label :parent_category_id %><br>
+      <%= f.text_field :parent_category_id, class: "form-control", cols: 40, rows: 30 %>
+    </div>
+   
+    <div class="form-group">
+      <%= f.submit "Submit", class: "btn btn-default"%>
+      <%= link_to 'Back', admin_path, class: "btn btn-default" %>
+    </div>
+  <% end %>
+</div>
