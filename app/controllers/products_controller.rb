@@ -9,7 +9,8 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @product = Product.new(product_params)
+    @product = Product.new(category: Category.find_by(title: params[:product][:category_id]), title: params[:product][:title], description: params[:product][:description], price: params[:product][:price], stock: params[:product][:stock])
+
     if @product.save
       @product.pictures.create(image: params[:product][:pictures][:image])
       redirect_to product_path(@product)
@@ -38,7 +39,9 @@ class ProductsController < ApplicationController
   private
 
   def product_params
-    params.require(:product).permit(:title, :description, :price, :stock, :slug, :pictures, pictures_attributes: [:id, :product_id, :image])
+    #params[:product][:category] = Category.find_by(title: params[:product][:category_id])
+    #p "THE CATEGORY PARAMS ARE #{params[:product][:category_id]}"
+    params.require(:product).permit(:title, :description, :price, :stock, :slug, :category_id, :pictures, pictures_attributes: [:id, :product_id, :image])
   end
 
   def find_product
