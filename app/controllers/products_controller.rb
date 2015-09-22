@@ -1,13 +1,17 @@
 class ProductsController < ApplicationController
+  include Permissions
+  before_action :check_privileges, only: [:create, :new, :update, :edit, :destroy]
   before_action :find_product, only: [:show, :edit, :update, :destroy]
   
   def index
     @product_listing = Product.order(created_at: :asc)
+    @categories = Category.where(:parent_category_id => nil)
   end
 
   def create
     @product = Product.new(product_params)
     if @product.save
+      @product.pictures.create(image: params[:product][:pictures][:image])
       redirect_to product_path(@product)
     else
       flash.alert = @product.errors.full_messages.join('. ')
@@ -34,7 +38,7 @@ class ProductsController < ApplicationController
   private
 
   def product_params
-    params.require(:product).permit(:title, :description, :price, :stock, :slug, {images: []})
+    params.require(:product).permit(:title, :description, :price, :stock, :slug, :pictures, pictures_attributes: [:id, :product_id, :image])
   end
 
   def find_product

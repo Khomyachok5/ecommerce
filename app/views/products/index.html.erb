@@ -7,3 +7,14 @@
     <hr>
   <% end %>
 <% end %>
+
+<%- @categories.each do |cat| %>
+  <%= cat.title %>
+  <br>
+    <%-if cat.subcategories %>
+      <%- cat.subcategories.each do |s| %>
+        <%= "THIS CATEGORY HAS THE FOLLOWING SUBCATEGORIES #{s.title}" %>
+      <% end %>
+    <% end %>
+  <br>
+<% end %>

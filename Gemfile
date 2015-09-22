@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 #friendly_id gem for meaningful URLs
 gem 'friendly_id', '~> 5.1.0'
 #carrierwave gem to upload images for products
-gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
+gem 'carrierwave', '~> 0.10.0'
 #Devise gem for authorization
 gem 'devise', '~> 3.5.2'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

@@ -26,10 +26,23 @@
       <%= f.text_field :stock, class: "form-control" %>
     </div>
 
-    <div class="form-group">
-      <%= f.label :images %><br>
-      <%= f.file_field :images, multiple: true, class: "form-control" %>
+    <%- if method == :post %>
+    <div>
+      <%= f.fields_for :pictures do |p| %>
+        <div class="field">
+           <%= p.label :image %><br>
+           <%= p.file_field :image %>
+        </div>
+     <% end %>
     </div>
+    <%- else %>
+      <div>
+        <%- @product.pictures.each do |p| %>
+          <%= image_tag p.image.url %>
+          <br>
+        <% end %>
+      </div>
+    <% end %>
 
    
     <div class="form-group">

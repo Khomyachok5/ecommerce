@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150922135757) do
+ActiveRecord::Schema.define(version: 20150922173031) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,15 @@ ActiveRecord::Schema.define(version: 20150922135757) do
   add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
   add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
 
+  create_table "pictures", force: :cascade do |t|
+    t.integer  "product_id"
+    t.string   "image"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "pictures", ["product_id"], name: "index_pictures_on_product_id", using: :btree
+
   create_table "products", force: :cascade do |t|
     t.integer  "category_id"
     t.string   "title",                       null: false
@@ -45,7 +54,6 @@ ActiveRecord::Schema.define(version: 20150922135757) do
     t.decimal  "price",                       null: false
     t.integer  "stock",                       null: false
     t.boolean  "deleted",     default: false
-    t.string   "images",                                   array: true
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
     t.string   "slug"
