@@ -26,13 +26,11 @@
       <%= f.text_field :stock, class: "form-control" %>
     </div>
 
+    <div class="form-group">
+      <%= f.label :images %><br>
+      <%= f.file_field :images, multiple: true, class: "form-control" %>
+    </div>
 
-      <%= f.fields_for :pictures do |p| %>
-        <div class="field">
-          <%= p.label :image %><br>
-          <%= p.file_field :image, multiple: true, name: "pictures[image][]" %>
-        </div>
-      <% end %>
    
     <div class="form-group">
       <%= f.submit "Submit", class: "btn btn-default"%>

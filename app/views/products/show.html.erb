@@ -32,8 +32,9 @@
     </div>
 </div>
 
-<% @images.each do |i| %>
-  <%= image_tag i.image.url%>
+
+<%- @product.images.each do |p| %>
+    <%= image_tag p.url %>
 <% end %>
 
 

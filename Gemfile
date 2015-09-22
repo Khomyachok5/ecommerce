@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 #friendly_id gem for meaningful URLs
 gem 'friendly_id', '~> 5.1.0'
 #carrierwave gem to upload images for products
-gem 'carrierwave', '~> 0.10.0'
+gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.3'
 # Use postgresql as the database for Active Record
