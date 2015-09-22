@@ -1,0 +1,17 @@
+<p class="lead">Product Management</p>
+<table class="table">
+  <tr>
+    <th>Title</th>
+    <th>Actions</th>
+  </tr>
+  
+  <%- @products.each do |p| %>
+    <tr>
+      <td> <%=p.title %> </td>
+        <td>
+          <%=link_to("Edit Product", edit_product_path(p), class: "btn btn-default")  %>
+          <%=link_to("Delete Product", product_path(p), method: :delete, class: "btn btn-default")  %>
+        </td>
+    </tr>
+  <% end %>
+</table>
