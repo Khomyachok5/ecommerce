@@ -4,6 +4,8 @@ source 'https://rubygems.org'
 gem 'friendly_id', '~> 5.1.0'
 #carrierwave gem to upload images for products
 gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
+#Devise gem for authorization
+gem 'devise', '~> 3.5.2'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.3'
 # Use postgresql as the database for Active Record
