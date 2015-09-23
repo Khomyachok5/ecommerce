@@ -4,6 +4,7 @@ class Product < ActiveRecord::Base
   
   searchable do
     text :title, :description
+    integer :category_id
   end
 
   belongs_to :category

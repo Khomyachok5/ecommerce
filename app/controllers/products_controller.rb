@@ -5,6 +5,10 @@ class ProductsController < ApplicationController
   
   def index
     @products = Product.search do
+      if params[:category_search] != ""
+        cat_arr = []
+        with(:category_id, find_subcategories(params[:category_search], cat_arr))
+      end
       fulltext  params[:query]
       paginate :page => params[:page], :per_page => 12
     end.results
@@ -52,4 +56,13 @@ class ProductsController < ApplicationController
   def find_product
     @product = Product.friendly.find(params[:id])
   end
+
+  def find_subcategories(parent_cat, cat_arr)
+    Category.find(parent_cat).subcategories.each do |s|
+      cat_arr << s.id 
+    end
+    cat_arr << parent_cat
+    cat_arr
+  end
+
 end

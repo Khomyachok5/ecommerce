@@ -27,10 +27,6 @@
               <%= link_to("Sign In", new_user_session_path, method: 'get', class: "btn btn-default") %>
               <%= link_to("Create New Account", new_user_registration_path, method: 'get', class: "btn btn-default") %>
             <% end %>
-            <%= form_tag(products_path, method: :get, class: "navbar-right", id: "navbar-search-form") do %>
-              <%= text_field_tag(:query, params[:query], placeholder: 'Search query', class: "form-control") %>
-              <%= submit_tag("Find", class: "btn btn-default") %>
-            <% end %>            
           </div>
         </div>
       </nav>
@@ -67,6 +63,15 @@
 
       <div class="sidebar-module" id="DIV_33">
         <p> <h3>Search</h3> </p>    
+      </div>
+
+      <div>
+        <%= form_tag products_path, method: :get do %>
+          <%= text_field_tag(:query, params[:query], placeholder: 'Search query', class: "form-control") %>
+          <%= label_tag :category_search, "Categories"%>
+          <%=select_tag :category_search, options_from_collection_for_select(Category.all, "id", "title"), include_blank: "All categories" %>
+          <%= submit_tag("Find", class: "btn btn-default") %>
+        <% end %>
       </div>
     </div>
   </div>
