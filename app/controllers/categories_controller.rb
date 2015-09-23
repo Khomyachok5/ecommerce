@@ -1,7 +1,7 @@
 class CategoriesController < ApplicationController
   include Permissions
   before_action :check_privileges, only: [:create, :new, :update, :edit, :destroy]
-  before_action :find_category, only: [:edit, :update, :destroy]
+  before_action :find_category, only: [:show, :edit, :update, :destroy]
 
   def new
   end
@@ -15,6 +15,10 @@ class CategoriesController < ApplicationController
       flash.alert = @category.errors.full_messages.join('. ')
       render :new
     end
+  end
+
+  def show
+    @products = Product.where(category: @category)
   end
 
   def update

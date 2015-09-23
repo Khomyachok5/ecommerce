@@ -1,12 +1,4 @@
-<%- @products.each do |product| %>
-  <%=cache(@product) do%>
-    <h1><%= truncate(product.title, length: 40) %></h1>
-    <%= truncate(product.description, length: 50) %>
-    <%= link_to 'Read more', product_path(product)%>
-    <p></p>
-    <hr>
-  <% end %>
-<% end %>
+<%= render partial: "shared/products" %>
 
 <%- @categories.each do |cat| %>
   <%= cat.title %>
