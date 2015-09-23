@@ -33,6 +33,7 @@
       <td> <%=cat.title %> </td>
       <td>
         <%=link_to("Edit Category", edit_category_path(cat), class: "btn btn-default")  %>
+        <%=link_to("View Products", products_path(category_search: cat.id), class: "btn btn-default")  %>
       </td>
     </tr>
   <% end %>
