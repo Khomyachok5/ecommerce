@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   devise_scope :user do
     authenticate :user do
       resources :categories, only: [:index, :create, :destroy, :edit, :update, :new]
+      patch 'bulk', to: 'categories#bulk_update', as: 'bulk'
     end
   end  
 

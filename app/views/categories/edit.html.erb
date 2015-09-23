@@ -1,1 +1,18 @@
 <%= render partial: "categories", locals: {url: category_path, method: :patch} %>
+
+<p class="lead">Depenencies Management</p>
+
+<%- if @category.products.any?%>
+  <p>This category has no dependent products.</p>
+<%- else %>
+  <p>This category has the following products:</p>
+  <%=link_to("View Products", products_path(category_search: @category.id), class: "btn btn-default") %>
+
+  <%= form_tag bulk_path(current_category: @category), method: :patch do %>
+    <%= label_tag :category_new, "Link these products to another category"%>
+    <%=select_tag :category_new, options_from_collection_for_select(Category.all, "id", "title"), include_blank: "No category"%>
+    <%= submit_tag("Update", class: "btn btn-default") %>
+  <% end %>
+<% end %>
+<br>
+<p><strong>To remove this category, please select "No parent" in the parent category selection and migrate products from this category to another one, then click "Remove Category" in the Admin Panel.<strong></p>

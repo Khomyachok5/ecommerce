@@ -8,7 +8,7 @@
 
     <div class="form-group">
       <%= f.label :category_id, "Product category" %><br>
-      <%= f.text_field :category_id, class: "form-control" %>
+      <%= f.collection_select :category_id, Category.all, :id, :title,  class: "form-control" %>
     </div>
 
     <div class="form-group">

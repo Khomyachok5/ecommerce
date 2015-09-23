@@ -5,12 +5,14 @@ class ProductsController < ApplicationController
   
   def index
     @products = Product.search do
-      unless !params[:category_search] || params[:category_search] == ""
+      if params[:search_no_subcats] #searches products disregarding subcategories
+        with(:category_id, params[:search_no_subcats])        
+      elsif !params[:category_search].blank? #search products accounting for subcategories
         cat_arr = []
         with(:category_id, find_subcategories(params[:category_search], cat_arr))
       end
       fulltext  params[:query]
-      paginate :page => params[:page], :per_page => 100
+      paginate :page => params[:page], :per_page => 12
     end.results
     #@total_pages = @products.total_pages    
     #@product_listing = Product.order(created_at: :asc)
@@ -18,7 +20,7 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @product = Product.new(category: Category.find_by(title: params[:product][:category_id]), title: params[:product][:title], description: params[:product][:description], price: params[:product][:price], stock: params[:product][:stock])
+    @product = Product.new(product_params)
     if @product.save
       @product.pictures.create(image: params[:product][:pictures][:image])
       redirect_to product_path(@product)
@@ -35,8 +37,13 @@ class ProductsController < ApplicationController
   end
 
   def update
-    @product.update_attributes(product_params)
-    redirect_to product_path(@product)
+    if @product.update_attributes(product_params)
+      flash.notice = "Product successfully modified"
+      redirect_to product_path(@product)
+    else
+      flash.alert = @product.errors.full_messages.join('. ')
+      redirect_to new_product_path
+    end
   end
 
   def destroy
