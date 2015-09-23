@@ -6,6 +6,9 @@ gem 'friendly_id', '~> 5.1.0'
 gem 'carrierwave', '~> 0.10.0'
 #Devise gem for authorization
 gem 'devise', '~> 3.5.2'
+#Sunspot gem for SOLR-powered search (using pre-packaged SOLR distribution for simplicity)
+gem 'sunspot_rails'
+gem 'sunspot_solr'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.3'
 # Use postgresql as the database for Active Record

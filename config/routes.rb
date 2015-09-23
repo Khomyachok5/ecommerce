@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   resources :products
   devise_scope :user do
     authenticate :user do
-      resources :categories, only: [:create, :destroy, :edit, :update, :new]
+      resources :categories, only: [:index, :create, :destroy, :edit, :update, :new]
     end
   end  
 

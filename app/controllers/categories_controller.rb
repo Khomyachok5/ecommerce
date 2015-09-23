@@ -2,7 +2,7 @@ class CategoriesController < ApplicationController
   include Permissions
   before_action :check_privileges, only: [:create, :new, :update, :edit, :destroy]
   before_action :find_category, only: [:edit, :update, :destroy]
-  
+
   def new
   end
 
