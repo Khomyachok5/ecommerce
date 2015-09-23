@@ -27,6 +27,14 @@ class CategoriesController < ApplicationController
   end
 
   def destroy
+    if @category.subcategories.first == nil && @category.products.first == nil
+      @category.destroy
+      flash.notice = "The category has been successfully removed"
+      redirect_to admin_path
+    else
+      flash.alert = "The category cannot be deleted as it has dependent products or subcategories. Please, move dependent entities to other categories first"
+      redirect_to admin_path
+    end
   end
 
   private

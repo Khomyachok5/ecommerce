@@ -4,14 +4,13 @@ class ProductsController < ApplicationController
   before_action :find_product, only: [:show, :edit, :update, :destroy]
   
   def index
-    p "PARAMS ARE #{params[:category_search]}"
     @products = Product.search do
-      unless !params[:category_search]
+      unless !params[:category_search] || params[:category_search] == ""
         cat_arr = []
         with(:category_id, find_subcategories(params[:category_search], cat_arr))
       end
       fulltext  params[:query]
-      paginate :page => params[:page], :per_page => 12
+      paginate :page => params[:page], :per_page => 100
     end.results
     #@total_pages = @products.total_pages    
     #@product_listing = Product.order(created_at: :asc)
@@ -20,7 +19,6 @@ class ProductsController < ApplicationController
 
   def create
     @product = Product.new(category: Category.find_by(title: params[:product][:category_id]), title: params[:product][:title], description: params[:product][:description], price: params[:product][:price], stock: params[:product][:stock])
-
     if @product.save
       @product.pictures.create(image: params[:product][:pictures][:image])
       redirect_to product_path(@product)
