@@ -1,6 +1,11 @@
 class Product < ActiveRecord::Base
   extend FriendlyId
   friendly_id :title, use: :slugged
+  
+  searchable do
+    text :title, :description
+  end
+
   belongs_to :category
   has_many :pictures
   accepts_nested_attributes_for :pictures

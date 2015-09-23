@@ -27,6 +27,10 @@
               <%= link_to("Sign In", new_user_session_path, method: 'get', class: "btn btn-default") %>
               <%= link_to("Create New Account", new_user_registration_path, method: 'get', class: "btn btn-default") %>
             <% end %>
+            <%= form_tag(products_path, method: :get, class: "navbar-right", id: "navbar-search-form") do %>
+              <%= text_field_tag(:query, params[:query], placeholder: 'Search query', class: "form-control") %>
+              <%= submit_tag("Find", class: "btn btn-default") %>
+            <% end %>            
           </div>
         </div>
       </nav>

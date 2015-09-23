@@ -4,7 +4,12 @@ class ProductsController < ApplicationController
   before_action :find_product, only: [:show, :edit, :update, :destroy]
   
   def index
-    @product_listing = Product.order(created_at: :asc)
+    @products = Product.search do
+      fulltext  params[:query]
+      paginate :page => params[:page], :per_page => 12
+    end.results
+    #@total_pages = @products.total_pages    
+    #@product_listing = Product.order(created_at: :asc)
     @categories = Category.where(:parent_category_id => nil)
   end
 

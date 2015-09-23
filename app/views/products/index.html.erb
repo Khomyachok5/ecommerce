@@ -1,4 +1,4 @@
-<%- @product_listing.each do |product| %>
+<%- @products.each do |product| %>
   <%=cache(@product) do%>
     <h1><%= truncate(product.title, length: 40) %></h1>
     <%= truncate(product.description, length: 50) %>
