@@ -4,8 +4,9 @@ class ProductsController < ApplicationController
   before_action :find_product, only: [:show, :edit, :update, :destroy]
   
   def index
+    p "PARAMS ARE #{params[:category_search]}"
     @products = Product.search do
-      if params[:category_search] != ""
+      unless !params[:category_search]
         cat_arr = []
         with(:category_id, find_subcategories(params[:category_search], cat_arr))
       end
@@ -48,8 +49,6 @@ class ProductsController < ApplicationController
   private
 
   def product_params
-    #params[:product][:category] = Category.find_by(title: params[:product][:category_id])
-    #p "THE CATEGORY PARAMS ARE #{params[:product][:category_id]}"
     params.require(:product).permit(:title, :description, :price, :stock, :slug, :category_id, :pictures, pictures_attributes: [:id, :product_id, :image])
   end
 
