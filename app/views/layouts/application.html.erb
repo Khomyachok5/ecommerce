@@ -16,6 +16,7 @@
             <a class="navbar-brand" href= <%=root_path%> id="A_8">E-commerce</a>
           </div>
           <div class="nav navbar-form navbar-right" id="button-header-group">
+            <%= link_to("View Cart", cart_path, method: 'get', class: "btn btn-default") %>
             <%- if current_user %> 
               <%= link_to("Sign Out", destroy_user_session_path, method: 'delete', class: "btn btn-default blog-nav-item") %>
               <%= link_to("Edit Account", edit_user_registration_path, class: "btn btn-default")  %>

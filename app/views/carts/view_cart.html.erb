@@ -1,0 +1,8 @@
+<p>You have added the following items to your cart:</p>
+<%- @products.each do |cart_item| %>
+  <h1><%= truncate(cart_item.product.title, length: 40) %></h1>
+  <%= truncate(cart_item.product.description, length: 50) %>
+  <%= cart_item.product.price %>
+  <p></p>
+  <hr>
+<% end %>

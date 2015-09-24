@@ -2,6 +2,7 @@ class ProductsController < ApplicationController
   include Permissions
   before_action :check_privileges, only: [:create, :new, :update, :edit, :destroy]
   before_action :find_product, only: [:show, :edit, :update, :destroy]
+  before_filter :initialize_cart
   
   def index
     @products = Product.search do

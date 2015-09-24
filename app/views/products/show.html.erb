@@ -45,3 +45,4 @@
 <br></br>
 <%=link_to("Edit Product", edit_product_path(@product.id), class: "btn btn-default")  %>
 <%=link_to("Delete Product", product_path(@product.id), method: :delete, class: "btn btn-default")  %>
+<%=link_to("Add to Cart", cart_add_path(product_id: @product.id), method: :post, class: "btn btn-success") %>

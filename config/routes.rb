@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'products#index'
 
+  #Category management
   resources :products
   devise_scope :user do
     authenticate :user do
@@ -14,8 +15,15 @@ Rails.application.routes.draw do
     end
   end
 
+  #Publicly available categories#show
   get 'categories/:id', to: "categories#show", as: "category_show"
 
+  #Publicly available shopping cart (cookie-based)
+  post "/cart", to: "carts#add_to_cart", as: "cart_add"
+  get "/cart", to: "carts#view_cart", as: "cart"
+
+
+  #Website Admin Panel
   devise_scope :user do
     authenticate :user do
       get "/admin", to: "admins#manage", as: :admin
