@@ -4,6 +4,8 @@ source 'https://rubygems.org'
 gem 'friendly_id', '~> 5.1.0'
 #carrierwave gem to upload images for products
 gem 'carrierwave', '~> 0.10.0'
+#MiniMagick Ruby interface to Imafgemagick (for use with Carrierwave image versions)
+gem 'mini_magick', '~> 4.2.10'
 #Devise gem for authorization
 gem 'devise', '~> 3.5.2'
 #Sunspot gem for SOLR-powered search (using pre-packaged SOLR distribution for simplicity)

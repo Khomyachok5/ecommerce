@@ -1,8 +1,7 @@
 class CartsController < ApplicationController
-  before_filter :initialize_cart
+  before_action :initialize_cart
 
   def add_to_cart
-    @cart = initialize_cart
     product = Product.find(params[:product_id])
     @cart_product = @cart.carts_products.build(product: product, item_count: 1)
     if @cart_product.save
@@ -14,12 +13,23 @@ class CartsController < ApplicationController
   end
 
   def view_cart
-    @products = initialize_cart.carts_products
+    @products = @cart.carts_products
   end
 
-  def update
-    initialize_cart.carts_products.where(id: params[:item_id]).first.destroy
+  def remove_from_cart
+    @cart.carts_products.where(id: params[:item_id]).first.destroy
     redirect_to cart_path
+  end
+
+  private
+
+  def initialize_cart
+    if session[:cart_id]
+      @cart = Cart.find(session[:cart_id])
+    else
+      @cart = Cart.create
+      session[:cart_id] = @cart.id
+    end
   end
 
 end

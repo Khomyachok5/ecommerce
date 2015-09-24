@@ -1,4 +1,9 @@
 <%- @products.each do |product| %>
+
+  <%- product.pictures.each do |p| %>
+    <%= image_tag p.image.thumb.url %>
+  <% end %>
+
   <%=cache(@product) do%>
     <h1><%= truncate(product.title, length: 40) %></h1>
     <%= truncate(product.description, length: 50) %>

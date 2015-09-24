@@ -88,6 +88,7 @@ GEM
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
     mime-types (2.6.2)
+    mini_magick (4.2.10)
     mini_portile (0.6.2)
     minitest (5.8.0)
     multi_json (1.11.2)
@@ -184,6 +185,7 @@ DEPENDENCIES
   friendly_id (~> 5.1.0)
   jbuilder (~> 2.0)
   jquery-rails
+  mini_magick (~> 4.2.10)
   pg
   rails (= 4.2.3)
   sass-rails (~> 5.0)

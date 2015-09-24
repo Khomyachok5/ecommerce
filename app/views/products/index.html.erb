@@ -1,16 +1,9 @@
 <div>
   <ul>
     <%- @categories.each do |category|%>
-      <%- if category.subcategories.count == 0 %>
         <li>
           <%= link_to category.title, category_show_path(category)%>
         </li>
-      <%- else %>
-        <li>
-          <%= link_to category.title, category_show_path(category) %>
-          <%= render partial: "shared/drop_down_categories", locals: {level: "dropdown-menu multi-level", categories: category.subcategories} %>
-        </li>
-      <% end %>
     <% end %>
   </ul>
 </div>

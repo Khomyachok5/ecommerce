@@ -2,7 +2,7 @@ class ProductsController < ApplicationController
   include Permissions
   before_action :check_privileges, only: [:create, :new, :update, :edit, :destroy]
   before_action :find_product, only: [:show, :edit, :update, :destroy]
-  before_filter :initialize_cart
+
   
   def index
     @products = Product.search do
@@ -17,13 +17,15 @@ class ProductsController < ApplicationController
     end.results
     #@total_pages = @products.total_pages    
     #@product_listing = Product.order(created_at: :asc)
-    @categories = Category.where(:parent_category_id => nil)
+    @categories = Category.order("title asc")
   end
 
   def create
     @product = Product.new(product_params)
     if @product.save
-      @product.pictures.create(image: params[:product][:pictures][:image])
+      if params[:product][:pictures]
+        @product.pictures.create(image: params[:product][:pictures][:image])
+      end
       redirect_to product_path(@product)
     else
       flash.alert = @product.errors.full_messages.join('. ')
