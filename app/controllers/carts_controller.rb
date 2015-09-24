@@ -17,7 +17,9 @@ class CartsController < ApplicationController
     @products = initialize_cart.carts_products
   end
 
-  def remove_from_cart
+  def update
+    initialize_cart.carts_products.where(id: params[:item_id]).first.destroy
+    redirect_to cart_path
   end
 
 end

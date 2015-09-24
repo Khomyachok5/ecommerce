@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   #Publicly available shopping cart (cookie-based)
   post "/cart", to: "carts#add_to_cart", as: "cart_add"
   get "/cart", to: "carts#view_cart", as: "cart"
+  patch "/cart", to: "carts#update", as: "cart_remove_item"
 
 
   #Website Admin Panel

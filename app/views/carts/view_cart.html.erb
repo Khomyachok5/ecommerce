@@ -3,6 +3,7 @@
   <h1><%= truncate(cart_item.product.title, length: 40) %></h1>
   <%= truncate(cart_item.product.description, length: 50) %>
   <%= cart_item.product.price %>
+  <%=link_to("Remove from Cart", cart_remove_item_path(item_id: cart_item.id), method: :patch, class: "btn btn-success") %>
   <p></p>
   <hr>
 <% end %>
