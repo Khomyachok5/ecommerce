@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -22,6 +23,9 @@ Rails.application.routes.draw do
   post "/cart", to: "carts#add_to_cart", as: "cart_add"
   get "/cart", to: "carts#view_cart", as: "cart"
   patch "/cart", to: "carts#remove_from_cart", as: "cart_remove_item"
+
+  #Orders
+  resources :orders, only: [:create, :new]
 
 
   #Website Admin Panel

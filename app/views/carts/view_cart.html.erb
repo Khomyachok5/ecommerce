@@ -1,9 +1,12 @@
 <p>You have added the following items to your cart:</p>
 <%- @products.each do |cart_item| %>
-  <h1><%= truncate(cart_item.product.title, length: 40) %></h1>
-  <%= truncate(cart_item.product.description, length: 50) %>
-  <%= cart_item.product.price %>
+  <h1><%= truncate(cart_item.title, length: 40) %></h1>
+  <%= truncate(cart_item.description, length: 50) %>
+  <%= cart_item.price %>
+  <%= cart_item.line_items.where(cart_id: @cart.id).first.item_count %>
   <%=link_to("Remove from Cart", cart_remove_item_path(item_id: cart_item.id), method: :patch, class: "btn btn-success") %>
   <p></p>
   <hr>
 <% end %>
+
+<%=link_to("Proceed to Checkout", new_order_path, class: "btn btn-danger") %>

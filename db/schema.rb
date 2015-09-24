@@ -11,26 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150924074054) do
+ActiveRecord::Schema.define(version: 20150924164427) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "carts", force: :cascade do |t|
+    t.json     "counters"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
-
-  create_table "carts_products", force: :cascade do |t|
-    t.integer  "cart_id"
-    t.integer  "product_id"
-    t.integer  "item_count", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "carts_products", ["cart_id"], name: "index_carts_products_on_cart_id", using: :btree
-  add_index "carts_products", ["product_id"], name: "index_carts_products_on_product_id", using: :btree
 
   create_table "categories", force: :cascade do |t|
     t.integer  "parent_category_id"
@@ -55,6 +45,39 @@ ActiveRecord::Schema.define(version: 20150924074054) do
   add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", using: :btree
   add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
   add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
+
+  create_table "line_items", force: :cascade do |t|
+    t.integer  "cart_id"
+    t.integer  "product_id"
+    t.integer  "item_count", default: 1, null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "line_items", ["cart_id"], name: "index_line_items_on_cart_id", using: :btree
+  add_index "line_items", ["product_id"], name: "index_line_items_on_product_id", using: :btree
+
+  create_table "orders", force: :cascade do |t|
+    t.string   "customer"
+    t.string   "shipping_address"
+    t.string   "email"
+    t.string   "phone"
+    t.decimal  "total"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  create_table "orders_products", force: :cascade do |t|
+    t.integer  "item_count", null: false
+    t.integer  "product_id"
+    t.integer  "order_id"
+    t.decimal  "item_price", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "orders_products", ["order_id"], name: "index_orders_products_on_order_id", using: :btree
+  add_index "orders_products", ["product_id"], name: "index_orders_products_on_product_id", using: :btree
 
   create_table "pictures", force: :cascade do |t|
     t.integer  "product_id"
