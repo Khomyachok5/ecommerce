@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'categories/:id', to: "categories#show"
+  get 'categories/:id', to: "categories#show", as: "category_show"
 
   devise_scope :user do
     authenticate :user do

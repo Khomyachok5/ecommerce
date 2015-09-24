@@ -22,12 +22,16 @@ class CategoriesController < ApplicationController
   end
 
   def update
-    if @category.update_attributes(category_params)
-      flash.notice = "The category has been updated"
-      redirect_to admin_path
+    if check_dependencies(@category, params[:category][:parent_category_id])
+      if @category.update_attributes(category_params)
+        flash.notice = "The category has been updated"
+        redirect_to admin_path
+      else
+        flash.error = @category.errors.full_messages.join('. ')
+        render :edit
+      end
     else
-      flash.error = @category.errors.full_messages.join('. ')
-      render :edit
+      redirect_to edit_category_path(@category)
     end
   end
 
@@ -64,4 +68,14 @@ class CategoriesController < ApplicationController
   def find_category
     @category = Category.friendly.find(params[:id])
   end
+
+  def check_dependencies(previous_cat, new_cat)
+    if previous_cat.subcategories.any? || previous_cat == new_cat
+      flash.alert = "Category cannot be updated to use the selected entity as its parent. Category must not be a parent to itself. Any dependent subcategory (immediate or indirect relation) cannot act as a parent to a higher level predecessor to avoid an infinite loop. Please, move all child categories from this category before proceeding. Update is not available for categories with subcategories in place."
+      false
+    else
+      true
+    end
+  end
+
 end
