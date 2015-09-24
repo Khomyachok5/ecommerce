@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(version: 20150924164427) do
   add_index "line_items", ["product_id"], name: "index_line_items_on_product_id", using: :btree
 
   create_table "orders", force: :cascade do |t|
+    t.integer  "cart_id"
     t.string   "customer"
     t.string   "shipping_address"
     t.string   "email"
