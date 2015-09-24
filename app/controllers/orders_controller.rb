@@ -31,6 +31,7 @@ class OrdersController < ApplicationController
       if @order.save
         format.html { redirect_to order_path(@order.id), notice: 'Order was successfully created.' }
         format.json { render :show, status: :created, location: @order }
+        decrement_stock
       else
         format.html { render :new }
         format.json { render json: @order.errors, status: :unprocessable_entity }
@@ -67,6 +68,15 @@ class OrdersController < ApplicationController
     def set_order
       @order = Order.find(params[:id])
     end
+
+    def decrement_stock
+    #product_price = line_item.product.price
+    @cart = Cart.find(session[:cart_id])
+      @cart.line_items.each do |li|
+        stock = li.product.stock - li.item_count
+        li.product.update_attributes(stock: stock)
+      end
+  end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
