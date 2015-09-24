@@ -25,7 +25,7 @@ Rails.application.routes.draw do
   patch "/cart", to: "carts#remove_from_cart", as: "cart_remove_item"
 
   #Orders
-  resources :orders, only: [:create, :new]
+  resources :orders, only: [:create, :new, :show]
 
 
   #Website Admin Panel
