@@ -17,7 +17,6 @@ class ProductsController < ApplicationController
     end.results
     #@total_pages = @products.total_pages    
     #@product_listing = Product.order(created_at: :asc)
-    @categories = Category.order("title asc")
   end
 
   def create

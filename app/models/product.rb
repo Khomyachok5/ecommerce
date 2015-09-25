@@ -10,7 +10,7 @@ class Product < ActiveRecord::Base
   belongs_to :category
   has_many :line_items
   has_many :carts, through: :line_items
-  has_many :pictures
+  has_many :pictures, dependent: :destroy
   accepts_nested_attributes_for :pictures
   has_many :orders_products
   validates :title, :description, :price, :stock, presence: true

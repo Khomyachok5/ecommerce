@@ -69,10 +69,23 @@
       <div>
         <%= form_tag products_path, method: :get do %>
           <%= text_field_tag(:query, params[:query], placeholder: 'Search query', class: "form-control") %>
+          <br>
+          <p>Scope the search to the following categories:</p>
           <%= label_tag :category_search, "Categories"%>
-          <%=select_tag :category_search, options_from_collection_for_select(Category.all, "id", "title"), include_blank: "All categories" %>
+          <%=select_tag :category_search, options_from_collection_for_select(Category.all, "id", "title"), include_blank: "All categories", class: "form-control" %>
           <%= submit_tag("Find", class: "btn btn-default") %>
         <% end %>
+      </div>
+      <div>
+        <br>
+        <p>Categories</p>
+        <ul>
+          <%- Category.order("title asc").each do |category|%>
+              <li>
+                <%= link_to category.title, category_show_path(category)%>
+              </li>
+          <% end %>
+        </ul>
       </div>
     </div>
   </div>

@@ -1,12 +1,2 @@
-<div>
-  <ul>
-    <%- @categories.each do |category|%>
-        <li>
-          <%= link_to category.title, category_show_path(category)%>
-        </li>
-    <% end %>
-  </ul>
-</div>
-
 <%= render partial: "shared/products" %>
 
