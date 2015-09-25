@@ -28,6 +28,7 @@ class OrdersController < ApplicationController
     @order = Order.new(order_params)
     @order.cart_id = current_cart.id
     set_total(@order)
+    if check_stock(@order) == true
       if @order.save
         decrement_stock
         empty_cart
@@ -35,6 +36,11 @@ class OrdersController < ApplicationController
       else
         render :new 
       end
+    else
+      flash.alert = "Purchased quantity exceeds stock"
+      @order.destroy
+      redirect_to cart_path
+    end
   end
 
 
@@ -79,5 +85,11 @@ class OrdersController < ApplicationController
       Cart.find(session[:cart_id])
     end
 
+    def check_stock(order)
+      order.cart.line_items.each do |l|
+        return false if l.item_count > l.product.stock
+      end
+      true
+    end
+  end
 
-end
