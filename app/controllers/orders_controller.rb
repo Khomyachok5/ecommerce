@@ -14,7 +14,7 @@ class OrdersController < ApplicationController
 
   # GET /orders/new
   def new
-    #@order = Order.new
+    @order = Order.new
     @value = total_c(session[:cart_id])
   end
 
@@ -26,55 +26,30 @@ class OrdersController < ApplicationController
   # POST /orders.json
   def create
     @order = Order.new(order_params)
+    @order.cart_id = current_cart.id
+    set_total(@order)
       if @order.save
-        set_total(@order)
         decrement_stock
         empty_cart
         redirect_to order_path(@order.id), notice: 'Order was successfully created.' 
-
       else
         render :new 
       end
   end
 
-  # PATCH/PUT /orders/1
-  # PATCH/PUT /orders/1.json
-  def update
-    respond_to do |format|
-      if @order.update(order_params)
-        format.html { redirect_to @order, notice: 'Order was successfully updated.' }
-        format.json { render :show, status: :ok, location: @order }
-      else
-        format.html { render :edit }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
-      end
-    end
-  end
 
-  # DELETE /orders/1
-  # DELETE /orders/1.json
-  def destroy
-    @order.destroy
-    respond_to do |format|
-      format.html { redirect_to orders_url, notice: 'Order was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_order
       @order = Order.find(params[:id])
     end
 
     def decrement_stock
-    #product_price = line_item.product.price
-    @cart = Cart.find(session[:cart_id])
-      @cart.line_items.each do |li|
+      current_cart.line_items.each do |li|
         stock = li.product.stock - li.item_count
         li.product.update_attributes(stock: stock)
       end
-  end
+    end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
@@ -90,15 +65,19 @@ class OrdersController < ApplicationController
         total << line_item_price
       end
       order_value = total.inject(:+)
-  end
+    end
 
     def set_total(order)
-      @cart = Cart.find(session[:cart_id])
-      order.update_attributes(total: total_c(@cart))
+      order.update_attributes(total: total_c(current_cart.id))
     end
 
     def empty_cart
-      @cart = Cart.find(session[:cart_id])
-      @cart.line_items.delete_all
+      session.delete(:cart_id)
     end
+
+    def current_cart
+      Cart.find(session[:cart_id])
+    end
+
+
 end

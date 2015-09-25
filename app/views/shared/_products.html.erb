@@ -1,13 +1,14 @@
 <%- @products.each do |product| %>
-
-  <%- product.pictures.each do |p| %>
-    <%= image_tag p.image.thumb.url %>
-  <% end %>
-
   <%=cache(@product) do%>
     <h1><%= truncate(product.title, length: 40) %></h1>
+    <%- product.pictures.each do |p| %>
+      <%= image_tag p.image.thumb.url %>
+    <% end %>
+    <br>
     <%= truncate(product.description, length: 50) %>
-    <%= link_to 'Read more', product_path(product)%>
+    <br>
+    <%= link_to 'View Product', product_path(product), class: "btn btn-success"%>
+    <%=link_to("Add to Cart", cart_add_path(product_id: product.id), method: :post, class: "btn btn-warning") %>
     <p></p>
     <hr>
   <% end %>

@@ -24,3 +24,13 @@
   <strong>Total:</strong>
   <%= @order.total %>
 </p>
+
+<div>
+  <strong>Products:</strong>
+  <%- @order.cart.line_items.each do |i| %>
+    <br>
+    <%= link_to i.product.title, product_path(i.product)%>
+    <%= " Quantity: #{i.item_count}"%>
+  <% end %>
+</div>
+

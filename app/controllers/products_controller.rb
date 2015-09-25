@@ -22,13 +22,13 @@ class ProductsController < ApplicationController
   def create
     @product = Product.new(product_params)
     if @product.save
-      if params[:product][:pictures]
-        @product.pictures.create(image: params[:product][:pictures][:image])
-      end
+      #if params[:product][:pictures]
+        #@product.pictures.create(image: params[:product][:pictures][:image])
+      #end
       redirect_to product_path(@product)
     else
       flash.alert = @product.errors.full_messages.join('. ')
-      redirect_to new_product_path
+      render :new
     end
   end
 
@@ -44,7 +44,7 @@ class ProductsController < ApplicationController
       redirect_to product_path(@product)
     else
       flash.alert = @product.errors.full_messages.join('. ')
-      redirect_to new_product_path
+      render action: :edit
     end
   end
 
@@ -56,7 +56,7 @@ class ProductsController < ApplicationController
   private
 
   def product_params
-    params.require(:product).permit(:title, :description, :price, :stock, :slug, :category_id, :pictures, pictures_attributes: [:id, :product_id, :image])
+    params.require(:product).permit(:title, :description, :price, :stock, :slug, :category_id, pictures_attributes: [:id, :product_id, :image])
   end
 
   def find_product

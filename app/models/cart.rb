@@ -1,7 +1,6 @@
 class Cart < ActiveRecord::Base
   has_many :line_items
   has_many :products, through: :line_items
-  has_many :orders
 
   def add(product)
     if existing = line_items.find_by(product_id: product.id)
@@ -15,10 +14,7 @@ class Cart < ActiveRecord::Base
   def remove(product)
     if existing = line_items.find_by(product_id: product.id)
       existing.item_count -= 1
-      existing.save!
-    else
-      existing.destroy!
-      #no action taken
+      existing.item_count > 0 ? existing.save : existing.destroy
     end
   end
 end

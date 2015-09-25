@@ -8,5 +8,5 @@
 Category.create(title: "abc")
 Category.first.products.create(title: "abc_product", description: "abc product description. It's AWESOME", price: 1567, stock: 1000)
 Category.first.subcategories.create(title: "new subcategory")
-User.create(email: "admin@bestshop.com", password: "12345678", is_admin: true)
-User.create(email: "visitor@bestshop.com", password: "12345678")
+User.create(email: "admin@ecommerce.com", password: "12345678", is_admin: true)
+User.create(email: "visitor@ecommerce.com", password: "12345678")
