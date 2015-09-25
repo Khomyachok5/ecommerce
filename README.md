@@ -105,7 +105,7 @@ Another point to note is that products are deleted which is likely to cause issu
 
 Currently the blog implements subcategories, however this imposes restrictions on category CRUD: a category that has child subcategories cannot be deleted. A sophisticated check is required otherwise to prevent a case of infinite loops.
 
-## 3.1 Testing methodology
+## 3.2 Testing methodology
 
 Controllers were selected as the primary target for testing. Tests ensure CRUD actions work in a proper way and thus guarantee the core functionality works. Indirectly, controller tests also verify model validations when the tests is trying to save an object with invalid attributes.
 
