@@ -83,6 +83,10 @@ Search box in the sidebar will automatically include products from subcategories
 
 A customer can create orders without registration. Nevertheless, Devise authorization is available and allows for any user to create an account. Creating an account doesn't give any additional functionality, but was left in the project as an essential component of any ecommerce platform.
 
+## 2.5 Picture upload
+
+Product can have an associated picture. An image is uploaded using Carrierwave gem, which does image versioning and resizing automatically. 
+
 ## 3 Process description and priorities
 
 The project followed top-down approach: model structure was designed first, followed by controller logic and views. Refactoring of the previously completed steps was performed on as-needed basis and could be accomplished at other steps to satisfy feature requirements.
