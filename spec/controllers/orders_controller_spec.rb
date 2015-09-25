@@ -6,11 +6,11 @@ RSpec.describe OrdersController, type: :controller do
     user = User.create(email: "admin@ecommerce.com", password: "12345678", is_admin: true)
     sign_in :user, user
     @cart_id = Cart.create.id
+    session[:cart_id] = @cart_id
   end
 
 
   let(:valid_attributes) {{
-    cart_id: 1,
     customer: "Mr Test",
     shipping_address: "The Road of Test, Rails Way, 51",
     email: "test@website.com",
@@ -37,8 +37,6 @@ RSpec.describe OrdersController, type: :controller do
 
   describe "GET #new" do
     it "assigns a new order as @order" do
-      p "#{Cart.all.count} IN THE TEST DATABASE"
-      p "ITS ID IS #{Cart.first.id}"
       get :new, {}, valid_session
       expect(assigns(:order)).to be_a_new(Order)
     end
