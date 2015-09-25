@@ -14,8 +14,8 @@ class OrdersController < ApplicationController
 
   # GET /orders/new
   def new
-    @order = Order.new
-    @value = @order.total_c(params[:cart])
+    #@order = Order.new
+    @value = total_c(session[:cart_id])
   end
 
   # GET /orders/1/edit
@@ -26,17 +26,14 @@ class OrdersController < ApplicationController
   # POST /orders.json
   def create
     @order = Order.new(order_params)
-
-    respond_to do |format|
       if @order.save
-        format.html { redirect_to order_path(@order.id), notice: 'Order was successfully created.' }
-        format.json { render :show, status: :created, location: @order }
+        set_total(@order)
         decrement_stock
+        redirect_to order_path(@order.id), notice: 'Order was successfully created.' 
+
       else
-        format.html { render :new }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
+        render :new 
       end
-    end
   end
 
   # PATCH/PUT /orders/1
@@ -80,6 +77,22 @@ class OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:customer, :shipping_address, :email, :phone, :total)
+      params.require(:order).permit(:customer, :shipping_address, :email, :phone, :total, :cart_id, :id)
+    end
+
+    def total_c(cart_id)
+      total = []
+      Cart.find(cart_id).line_items.each do |line_item|
+        product_price = line_item.product.price
+        quantity = line_item.item_count
+        line_item_price = product_price * quantity
+        total << line_item_price
+      end
+      order_value = total.inject(:+)
+  end
+
+    def set_total(order)
+      @cart = Cart.find(session[:cart_id])
+      order.update_attributes(total: total_c(@cart))
     end
 end

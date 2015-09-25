@@ -41,3 +41,24 @@
 </table>
 
 <%=link_to("New Category", new_category_path, class: "btn btn-default")%>
+
+<p class="lead">Order Management</p>
+<table class="table">
+  <tr>
+    <th>ID</th>
+    <th>Customer</th>
+    <th>Value</th>
+    <th>Actions</th>
+  </tr>
+  
+  <%- @orders.each do |o| %>
+    <tr>
+      <td> <%=o.id %> </td>
+      <td> <%=o.customer %> </td>
+      <td> <%=o.total %> </td>
+      <td>
+        <%=link_to("View Order", orders_path(o), class: "btn btn-default") %>
+      </td>
+    </tr>
+  <% end %>
+</table>

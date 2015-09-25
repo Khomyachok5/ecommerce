@@ -1,6 +1,7 @@
 class Cart < ActiveRecord::Base
   has_many :line_items
   has_many :products, through: :line_items
+  has_many :orders
 
   def add(product)
     if existing = line_items.find_by(product_id: product.id)
