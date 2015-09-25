@@ -17,6 +17,10 @@
 	  <%= @product.description %>
 	</div>
 
+	<div >
+	  <%= "The price of the item: #{@product.price} "%>
+	</div>
+
 	<div>
 	  <%=link_to("Add to Cart", cart_add_path(product_id: @product.id), method: :post, class: "btn btn-success") %>
 	</div>
