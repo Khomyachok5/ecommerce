@@ -1,10 +1,15 @@
 == README
 
-The Benchmark app features functionality typically found in most ecommerce solutions in a very basic way. It allows customers to view products and make orders, while administrator possesses privileges to create, update and delete articles. 
+The Benchmark app features functionality typically found in most ecommerce solutions in a very basic way. It allows customers to view products and make orders, while administrator possesses privileges to create, update and delete products. 
 
 The further sections will guide you through deploying the app and setting up the app:
 
-== 1. Deployment
+== 1. Setup
+
+The following versions of software products were used in this project:
+
+ruby 2.2.2
+PostgreSQL 9.4
 
 Clone the repository in a folder of your choice by running git clone command:
 
@@ -83,3 +88,22 @@ A customer can create orders without registration. Nevertheless, Devise authoriz
 The project followed top-down approach: model structure was designed first, followed by controller logic and views. Refactoring of the previously completed steps was performed on as-needed basis and could be accomplished at other steps to satisfy feature requirements.
 
 Time was spread evenly between each feature, however if the allotted period wasn't enough for the feature, only the core functionality was implemented.
+
+
+== 3.1 Limitations
+ 
+To speed up the development process while recognizing the value of proper timing, several pronciples were severely simplified. 
+
+First and foremost, cart is implemented as a model. Cart has dependent line items that are not deleted from the database. The rationale of this logic is that Order entities have direct access to the information related to line items. This would never be acceptable in a production environment due to the orphaned database entities. A solution could be to copy data from the cart into a join table, however it was not implemented for the sake of simplicity. 
+
+Another point to note is that products are deleted which is likely to cause issues with dependent entities. The correct approach is to mark critical objects as deleted as opposed to permanently removing them from the database. Another approach is to copy the required data to an independent entity and use that as a source of information for the dependent objects as opposed to relying on an object that might have been deleted. 
+
+Currently the blog implements subcategories, however this imposes restrictions on category CRUD: a category that has child subcategories cannot be deleted. A sophisticated check is required otherwise to prevent a case of infinite loops.
+
+== 3.1 Testing methodology
+
+
+
+
+
+
