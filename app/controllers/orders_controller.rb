@@ -29,6 +29,7 @@ class OrdersController < ApplicationController
       if @order.save
         set_total(@order)
         decrement_stock
+        empty_cart
         redirect_to order_path(@order.id), notice: 'Order was successfully created.' 
 
       else
@@ -94,5 +95,10 @@ class OrdersController < ApplicationController
     def set_total(order)
       @cart = Cart.find(session[:cart_id])
       order.update_attributes(total: total_c(@cart))
+    end
+
+    def empty_cart
+      @cart = Cart.find(session[:cart_id])
+      @cart.line_items.delete_all
     end
 end
